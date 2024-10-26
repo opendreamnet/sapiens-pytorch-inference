@@ -10,10 +10,10 @@ from .common import create_preprocessor, download_hf_model, TaskType
 
 class SapiensDepthType(Enum):
     OFF = "off"
-    DEPTH_03B = "sapiens_0.3b_render_people_epoch_100_torchscript.pt2"
-    DEPTH_06B = "sapiens_0.6b_render_people_epoch_70_torchscript.pt2"
-    DEPTH_1B = "sapiens_1b_render_people_epoch_88_torchscript.pt2"
-    DEPTH_2B = "sapiens_2b_render_people_epoch_25_torchscript.pt2"
+    DEPTH_03B = "sapiens-depth-0.3b-torchscript/sapiens_0.3b_render_people_epoch_100_torchscript.pt2"
+    DEPTH_06B = "sapiens-depth-0.6b-torchscript/sapiens_0.6b_render_people_epoch_70_torchscript.pt2"
+    DEPTH_1B = "sapiens-depth-1b-torchscript/sapiens_1b_render_people_epoch_88_torchscript.pt2"
+    DEPTH_2B = "sapiens-depth-2b-torchscript/sapiens_2b_render_people_epoch_25_torchscript.pt2"
 
 
 def draw_depth_map(depth_map: np.ndarray) -> np.ndarray:
@@ -44,7 +44,7 @@ class SapiensDepth():
                  type: SapiensDepthType = SapiensDepthType.DEPTH_03B,
                  device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu"),
                  dtype: torch.dtype = torch.float32):
-        path = download_hf_model(type.value, TaskType.DEPTH)
+        path = download_hf_model(type.value)
         model = torch.jit.load(path)
         model = model.eval()
         self.model = model.to(device).to(dtype)

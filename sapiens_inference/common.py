@@ -36,22 +36,22 @@ def download(url: str, filename: str):
                     f.write(chunk)
 
 
-def download_hf_model(model_name: str, task_type: TaskType, model_dir: str = 'models'):
+def download_hf_model(model_name: str, model_dir: str = 'models'):
     if not os.path.exists(model_dir):
         os.makedirs(model_dir)
 
-    path = model_dir + "/" + model_name
+    repo_name = model_name.split("/")[0]
+    filename = model_name.split("/")[1]
+
+    path = model_dir + "/" + filename
     if os.path.exists(path):
         return path
 
-    print(f"Model {model_name} not found, downloading from Hugging Face Hub...")
+    print(f"Model {filename} not found, downloading from Hugging Face Hub...")
 
-    model_version = "_".join(model_name.split("_")[:2])
-    repo_id = "facebook/sapiens"
-    subdirectory = f"sapiens_lite_host/torchscript/{task_type.value}/checkpoints/{model_version}"
+    repo_id = f"facebook/{repo_name}"
 
-    # hf_hub_download(repo_id=repo_id, filename=model_name, subfolder=subdirectory, local_dir=model_dir)
-    url = hf_hub_url(repo_id=repo_id, filename=model_name, subfolder=subdirectory)
+    url = hf_hub_url(repo_id=repo_id, filename=filename)
     download(url, path)
     print("Model downloaded successfully to", path)
 

@@ -10,9 +10,9 @@ from .common import create_preprocessor, TaskType, download_hf_model
 
 
 class SapiensSegmentationType(Enum):
-    SEGMENTATION_03B = "sapiens_0.3b_goliath_best_goliath_mIoU_7673_epoch_194_torchscript.pt2"
-    SEGMENTATION_06B = "sapiens_0.6b_goliath_best_goliath_mIoU_7777_epoch_178_torchscript.pt2"
-    SEGMENTATION_1B = "sapiens_1b_goliath_best_goliath_mIoU_7994_epoch_151_torchscript.pt2"
+    SEGMENTATION_03B = "sapiens-seg-0.3b-torchscript/sapiens_0.3b_goliath_best_goliath_mIoU_7673_epoch_194_torchscript.pt2"
+    SEGMENTATION_06B = "sapiens-seg-0.6b-torchscript/sapiens_0.6b_goliath_best_goliath_mIoU_7777_epoch_178_torchscript.pt2"
+    SEGMENTATION_1B = "sapiens-seg-1b-torchscript/sapiens_1b_goliath_best_goliath_mIoU_7994_epoch_151_torchscript.pt2"
 
 
 random = np.random.RandomState(11)
@@ -56,7 +56,7 @@ class SapiensSegmentation():
                  type: SapiensSegmentationType = SapiensSegmentationType.SEGMENTATION_1B,
                  device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu"),
                  dtype: torch.dtype = torch.float32):
-        path = download_hf_model(type.value, TaskType.SEG)
+        path = download_hf_model(type.value)
         model = torch.jit.load(path)
         model = model.eval()
         self.model = model.to(device).to(dtype)

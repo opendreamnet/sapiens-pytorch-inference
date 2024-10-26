@@ -19,11 +19,10 @@ from .pose_classes_and_palettes import (
 
 
 class SapiensPoseEstimationType(Enum):
-    POSE_ESTIMATION_03B = "sapiens_0.3b_goliath_best_goliath_AP_575_torchscript.pt2"
-    POSE_ESTIMATION_06B = "sapiens_0.6b_goliath_best_goliath_AP_600_torchscript.pt2"
-    POSE_ESTIMATION_1B = "sapiens_1b_goliath_best_goliath_AP_640_torchscript.pt2"
+    POSE_ESTIMATION_03B = "sapiens-pose-0.3b-torchscript/sapiens_0.3b_goliath_best_goliath_AP_573_torchscript.pt2"
+    POSE_ESTIMATION_06B = "sapiens-pose-0.6b-torchscript/sapiens_0.6b_goliath_best_goliath_AP_600_torchscript.pt2"
+    POSE_ESTIMATION_1B = "sapiens-pose-1b-torchscript/sapiens_1b_goliath_best_goliath_AP_640_torchscript.pt2"
     
-
 
 class SapiensPoseEstimation:
     def __init__(self,
@@ -33,7 +32,7 @@ class SapiensPoseEstimation:
         # Load the model
         self.device = device
         self.dtype = dtype
-        path = download_hf_model(type.value, TaskType.POSE)
+        path = download_hf_model(type.value)
         self.model = torch.jit.load(path).eval().to(device).to(dtype)
         self.preprocessor = pose_estimation_preprocessor(input_size=(1024, 768))
 

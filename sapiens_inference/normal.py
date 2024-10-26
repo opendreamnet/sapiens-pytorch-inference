@@ -10,10 +10,10 @@ from .common import create_preprocessor, TaskType, download_hf_model
 
 class SapiensNormalType(Enum):
     OFF = "off"
-    NORMAL_03B = "sapiens_0.3b_normal_render_people_epoch_66_torchscript.pt2"
-    NORMAL_06B = "sapiens_0.6b_normal_render_people_epoch_200_torchscript.pt2"
-    NORMAL_1B = "sapiens_1b_normal_render_people_epoch_115_torchscript.pt2"
-    NORMAL_2B = "sapiens_2b_normal_render_people_epoch_70_torchscript.pt2"
+    NORMAL_03B = "sapiens-normal-0.3b-torchscript/sapiens_0.3b_normal_render_people_epoch_66_torchscript.pt2"
+    NORMAL_06B = "sapiens-normal-0.6b-torchscript/sapiens_0.6b_normal_render_people_epoch_200_torchscript.pt2"
+    NORMAL_1B = "sapiens-normal-1b-torchscript/sapiens_1b_normal_render_people_epoch_115_torchscript.pt2"
+    NORMAL_2B = "sapiens-normal-2b-torchscript/sapiens_2b_normal_render_people_epoch_70_torchscript.pt2"
 
 
 def draw_normal_map(normal_map: np.ndarray) -> np.ndarray:
@@ -43,7 +43,7 @@ class SapiensNormal():
                  type: SapiensNormalType = SapiensNormalType.NORMAL_03B,
                  device: torch.device = torch.device("cuda" if torch.cuda.is_available() else "cpu"),
                  dtype: torch.dtype = torch.float32):
-        path = download_hf_model(type.value, TaskType.NORMAL)
+        path = download_hf_model(type.value)
         model = torch.jit.load(path)
         model = model.eval()
         self.model = model.to(device).to(dtype)
