@@ -1,32 +1,27 @@
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "sapiens-inferece"
+name = "sapiens-pytorch-inference"
 version = "0.2.0"
 description = "Run Sapiens Human Foundation models in Pytorch"
 readme = "README.md"
 license = {text = "MIT"}
-keywords = ["deep-learning", "computer-vision", "Segmentation", "Human Foundation", "Normal-Estimation", "Pose-Estimation", "Depth-Estimation"]
 authors = [
-    {name = "Ibai Gorordo"}
+    {name = "Ibai Gorordo"},
+    {name = "Iván Bravo Bravo", email = "ivan@opendreamnet.com"}
 ]
+requires-python = ">=3.10"
+
 dependencies = [
-    "torch",
-    "opencv-python",
-    "torchvision",
-    "huggingface_hub",
+    "opencv-python>=4.11.0.86",
+    "torch>=2.6.0",
+    "torchvision>=0.21.0",
+    "ultralytics>=8.3.73",
 ]
 
-[project.optional-dependencies]
-export = [
-    "onnx",
-    "onnxruntime",
+[dependency-groups]
+onnx = [
+    "onnx>=1.17.0",
+    "onnxruntime>=1.20.1",
 ]
 
-[tool.setuptools.packages.find]
-include = ["sapiens_inference"]
-
-[project.urls]
-Homepage = "https://github.com/ibaiGorordo/Sapiens-Pytorch-Inference"
+[tool.uv]
+package = true
