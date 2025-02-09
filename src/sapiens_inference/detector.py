@@ -8,6 +8,9 @@ class DetectorConfig:
     model_path: str = "models/yolov8m.pt"
     person_id: int = 0
     conf_thres: float = 0.25
+    
+    def __hash__(self):
+        return hash([self.model_path, str(self.person_id), str(self.conf_thres)].join("."))
 
 
 def draw_boxes(img, boxes, color=(0, 255, 0), thickness=2):
