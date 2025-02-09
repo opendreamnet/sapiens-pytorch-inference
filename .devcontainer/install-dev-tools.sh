@@ -13,7 +13,9 @@ apt-get update
 #
 apt-get install -y \
   wget \
-  curl
+  curl \
+  libgl1 \
+  libglib2.0-0
 
 #
 # Python - UV
