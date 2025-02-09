@@ -16,6 +16,19 @@ resolution-markers = [
 ]
 
 [[package]]
+name = "cap-from-youtube"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "opencv-python" },
+    { name = "yt-dlp" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/47/e4/cfbd571ac083a010f3372543c9b8a6c0c4df074a139a3787c70d061a8d67/cap_from_youtube-0.2.0.tar.gz", hash = "sha256:6bd803caebac878c1a75183a43f55636f3b252e993e3a08e86fc7fb084be2f97", size = 4129 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/cf/fb/b7860bf3592025b04309986c2815d459945c11b2cad64a833fc57d303a9f/cap_from_youtube-0.2.0-py3-none-any.whl", hash = "sha256:38e6243310cb1e76b036ff82e8740781f7b492823ce5ad2a78f9ac470f16a22a", size = 4710 },
+]
+
+[[package]]
 name = "certifi"
 version = "2025.1.31"
 source = { registry = "https://pypi.org/simple" }
@@ -180,6 +193,15 @@ wheels = [
 ]
 
 [[package]]
+name = "fake-useragent"
+version = "2.0.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d6/a4/f8d204c20e7879c2c1fd1719095673f447a3111282bfe09c0a74a5ed5000/fake_useragent-2.0.3.tar.gz", hash = "sha256:af86a26ef8229efece8fed529b4aeb5b73747d889b60f01cd477b6f301df46e6", size = 194741 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/11/4f/a639b1dbdc557241e702eefb931ba24ba235c84f8fffdca3e272f096c6af/fake_useragent-2.0.3-py3-none-any.whl", hash = "sha256:8bae50abb72c309a5b3ae2f01a0b82426613fd5c4e2a04dca9332399ec44daa1", size = 201110 },
+]
+
+[[package]]
 name = "filelock"
 version = "3.17.0"
 source = { registry = "https://pypi.org/simple" }
@@ -248,6 +270,24 @@ wheels = [
 ]
 
 [[package]]
+name = "huggingface-hub"
+version = "0.28.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "filelock" },
+    { name = "fsspec" },
+    { name = "packaging" },
+    { name = "pyyaml" },
+    { name = "requests" },
+    { name = "tqdm" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e7/ce/a734204aaae6c35a22f9956ebcd8d8708ae5b842e15d6f42bd6f49e634a4/huggingface_hub-0.28.1.tar.gz", hash = "sha256:893471090c98e3b6efbdfdacafe4052b20b84d59866fb6f54c33d9af18c303ae", size = 387074 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ea/da/6c2bea5327b640920267d3bf2c9fc114cfbd0a5de234d81cda80cc9e33c8/huggingface_hub-0.28.1-py3-none-any.whl", hash = "sha256:aa6b9a3ffdae939b72c464dbb0d7f99f56e649b55c3d52406f49e0a5a620c0a7", size = 464068 },
+]
+
+[[package]]
 name = "humanfriendly"
 version = "10.0"
 source = { registry = "https://pypi.org/simple" }
@@ -267,6 +307,18 @@ sdist = { url = "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7
 wheels = [
     { url = "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl", hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3", size = 70442 },
 ]
+
+[[package]]
+name = "imread-from-url"
+version = "0.1.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "fake-useragent" },
+    { name = "opencv-python" },
+    { name = "pillow" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ad/b7/bfe6ba4177858810ad45e08c0a78839013fdf384bac55de208b23fc4f207/imread_from_url-0.1.3.tar.gz", hash = "sha256:85de8835b222bd8723f5c8b3cd2723d1989827e9c3918ac0877c231ce2c90152", size = 7587 }
 
 [[package]]
 name = "jinja2"
@@ -1018,20 +1070,30 @@ name = "sapiens-pytorch-inference"
 version = "0.2.0"
 source = { editable = "." }
 dependencies = [
+    { name = "huggingface-hub" },
     { name = "opencv-python" },
     { name = "torch" },
     { name = "torchvision" },
     { name = "ultralytics" },
 ]
 
-[package.dev-dependencies]
+[package.optional-dependencies]
 onnx = [
     { name = "onnx" },
     { name = "onnxruntime" },
 ]
 
+[package.dev-dependencies]
+scripts = [
+    { name = "cap-from-youtube" },
+    { name = "imread-from-url" },
+]
+
 [package.metadata]
 requires-dist = [
+    { name = "huggingface-hub", specifier = ">=0.28.1" },
+    { name = "onnx", marker = "extra == 'onnx'", specifier = ">=1.17.0" },
+    { name = "onnxruntime", marker = "extra == 'onnx'", specifier = ">=1.20.1" },
     { name = "opencv-python", specifier = ">=4.11.0.86" },
     { name = "torch", specifier = ">=2.6.0" },
     { name = "torchvision", specifier = ">=0.21.0" },
@@ -1039,9 +1101,9 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-onnx = [
-    { name = "onnx", specifier = ">=1.17.0" },
-    { name = "onnxruntime", specifier = ">=1.20.1" },
+scripts = [
+    { name = "cap-from-youtube", specifier = ">=0.2.0" },
+    { name = "imread-from-url", specifier = ">=0.1.3" },
 ]
 
 [[package]]
@@ -1299,4 +1361,13 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/aa/63/e53da845320b757bf29ef6a9062f5c669fe997973f966045cb019c3f4b66/urllib3-2.3.0.tar.gz", hash = "sha256:f8c5449b3cf0861679ce7e0503c7b44b5ec981bec0d1d3795a07f1ba96f0204d", size = 307268 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c8/19/4ec628951a74043532ca2cf5d97b7b14863931476d117c471e8e2b1eb39f/urllib3-2.3.0-py3-none-any.whl", hash = "sha256:1cee9ad369867bfdbbb48b7dd50374c0967a0bb7710050facf0dd6911440e3df", size = 128369 },
+]
+
+[[package]]
+name = "yt-dlp"
+version = "2025.1.26"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0e/8c/b8b04d88f2d3f579fb5fcb65bdf66abbec3e1d22a3b982e3d2f63301ef2e/yt_dlp-2025.1.26.tar.gz", hash = "sha256:1c9738266921ad43c568ad01ac3362fb7c7af549276fbec92bd72f140da16240", size = 2922241 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/33/9b/1b28a179fb4e1c751ab2a3d39c82606a9754a0d4521d7a9b7579e08aa5f8/yt_dlp-2025.1.26-py3-none-any.whl", hash = "sha256:3e76bd896b9f96601021ca192ca0fbdd195e3c3dcc28302a3a34c9bc4979da7b", size = 3181256 },
 ]
