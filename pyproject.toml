@@ -11,11 +11,11 @@ authors = [
 requires-python = ">=3.10"
 
 dependencies = [
-    "huggingface-hub>=0.28.1",
-    "opencv-python>=4.11.0.86",
+    "huggingface-hub>=0.26.1",
+    "opencv-python>=4.9.0.80",
     "torch<2.5.0",
     "torchvision>=0.19.1",
-    "ultralytics>=8.3.73",
+    "ultralytics",
 ]
 
 [project.optional-dependencies]
