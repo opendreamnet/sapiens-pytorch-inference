@@ -27,11 +27,15 @@ onnx = [
 [dependency-groups]
 scripts = [
     "cap-from-youtube>=0.2.0",
-    "imread-from-url>=0.1.3",
+    "fake-useragent>=2.0.3",
 ]
 
 [project.scripts]
-image_normal_estimation = "scripts:image_normal_estimation"
+image_normal_estimation = "scripts.image_normal_estimation:run"
+image_pose_estimation = "scripts.image_pose_estimation:run"
+image_predictor = "scripts.image_predictor:run"
+image_segmentation = "scripts.image_segmentation:run"
+onnx_export = "scripts.onnx_export:run"
 
 [tool.uv]
 package = true

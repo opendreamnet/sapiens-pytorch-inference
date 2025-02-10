@@ -1,14 +1,11 @@
 from dataclasses import dataclass
-
 import cv2
 import numpy as np
 import torch
-
 from .depth import SapiensDepth, SapiensDepthType, draw_depth_map
-from .segmentation import SapiensSegmentation, SapiensSegmentationType, draw_segmentation_map
+from .segmentation import SapiensSegmentation, SapiensSegmentationType
 from .normal import SapiensNormal, SapiensNormalType, draw_normal_map
 from .detector import Detector, DetectorConfig
-
 
 @dataclass
 class SapiensConfig:
@@ -101,35 +98,36 @@ class SapiensPredictor:
 
     # TODO: Clean this up
     def draw_maps(self, img, person_boxes, normal_maps, segmentation_maps, depth_maps):
-        draw_img = []
-        segmentation_img = img.copy()
-        for segmentation_map, box in zip(segmentation_maps, person_boxes):
-            mask = segmentation_map > 0
-            crop = segmentation_img[box[1]:box[3], box[0]:box[2]]
-            segmentation_draw = draw_segmentation_map(segmentation_map)
-            crop_draw = cv2.addWeighted(crop, 0.5, segmentation_draw, 0.7, 0)
-            segmentation_img[box[1]:box[3], box[0]:box[2]] = crop_draw * mask[..., None] + crop * ~mask[..., None]
-        draw_img.append(segmentation_img)
+        pass
+        # draw_img = []
+        # segmentation_img = img.copy()
+        # for segmentation_map, box in zip(segmentation_maps, person_boxes):
+        #     mask = segmentation_map > 0
+        #     crop = segmentation_img[box[1]:box[3], box[0]:box[2]]
+        #     segmentation_draw = draw_segmentation_map(segmentation_map)
+        #     crop_draw = cv2.addWeighted(crop, 0.5, segmentation_draw, 0.7, 0)
+        #     segmentation_img[box[1]:box[3], box[0]:box[2]] = crop_draw * mask[..., None] + crop * ~mask[..., None]
+        # draw_img.append(segmentation_img)
 
-        if self.has_normal:
-            normal_img = img.copy()
-            for i, (normal_map, box) in enumerate(zip(normal_maps, person_boxes)):
-                mask = segmentation_maps[i] > 0
-                crop = normal_img[box[1]:box[3], box[0]:box[2]]
-                normal_draw = draw_normal_map(normal_map)
-                crop_draw = cv2.addWeighted(crop, 0.5, normal_draw, 0.7, 0)
-                normal_img[box[1]:box[3], box[0]:box[2]] = crop_draw * mask[..., None] + crop * ~mask[..., None]
-            draw_img.append(normal_img)
+        # if self.has_normal:
+        #     normal_img = img.copy()
+        #     for i, (normal_map, box) in enumerate(zip(normal_maps, person_boxes)):
+        #         mask = segmentation_maps[i] > 0
+        #         crop = normal_img[box[1]:box[3], box[0]:box[2]]
+        #         normal_draw = draw_normal_map(normal_map)
+        #         crop_draw = cv2.addWeighted(crop, 0.5, normal_draw, 0.7, 0)
+        #         normal_img[box[1]:box[3], box[0]:box[2]] = crop_draw * mask[..., None] + crop * ~mask[..., None]
+        #     draw_img.append(normal_img)
 
-        if self.has_depth:
-            depth_img = img.copy()
-            for i, (depth_map, box) in enumerate(zip(depth_maps, person_boxes)):
-                mask = segmentation_maps[i] > 0
-                crop = depth_img[box[1]:box[3], box[0]:box[2]]
-                depth_map[~mask] = 0
-                depth_draw = draw_depth_map(depth_map)
-                crop_draw = cv2.addWeighted(crop, 0.5, depth_draw, 0.7, 0)
-                depth_img[box[1]:box[3], box[0]:box[2]] = crop_draw * mask[..., None] + crop * ~mask[..., None]
-            draw_img.append(depth_img)
+        # if self.has_depth:
+        #     depth_img = img.copy()
+        #     for i, (depth_map, box) in enumerate(zip(depth_maps, person_boxes)):
+        #         mask = segmentation_maps[i] > 0
+        #         crop = depth_img[box[1]:box[3], box[0]:box[2]]
+        #         depth_map[~mask] = 0
+        #         depth_draw = draw_depth_map(depth_map)
+        #         crop_draw = cv2.addWeighted(crop, 0.5, depth_draw, 0.7, 0)
+        #         depth_img[box[1]:box[3], box[0]:box[2]] = crop_draw * mask[..., None] + crop * ~mask[..., None]
+        #     draw_img.append(depth_img)
 
-        return np.hstack(draw_img)
+        # return np.hstack(draw_img)
