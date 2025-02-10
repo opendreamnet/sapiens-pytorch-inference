@@ -3,14 +3,22 @@
 {
 	"name": "sapiens-pytorch-inference",
 
-	"image": "nvidia/cuda:12.6.2-cudnn-devel-ubuntu24.04",
+	"dockerComposeFile": [
+		"compose.yml"
+	],
+
+  "service": "ubuntu",
+  "containerUser": "ubuntu",
+  "overrideCommand": true,
+
+  "workspaceFolder": "/workspace",
 
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {},
 		"ghcr.io/devcontainers/features/git:1": {}
 	},
 
-	"updateContentCommand": "bash .devcontainer/install-dev-tools.sh",
+	"updateContentCommand": "sudo bash .devcontainer/install-dev-tools.sh",
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "bash .devcontainer/init.sh",
@@ -34,10 +42,4 @@
 	    ]
     }
   }
-
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
 }

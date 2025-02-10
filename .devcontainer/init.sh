@@ -5,4 +5,4 @@
 #
 uv python install 3.11
 uv venv
-uv sync
+uv sync --group scripts

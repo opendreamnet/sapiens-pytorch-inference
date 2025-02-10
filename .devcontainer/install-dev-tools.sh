@@ -20,5 +20,6 @@ apt-get install -y \
 #
 # Python - UV
 #
+export UV_INSTALL_DIR="/usr/local/bin"
 curl -LsSf https://astral.sh/uv/0.5.24/install.sh | sh
-echo 'eval "$(uv generate-shell-completion bash)"' >> ~/.bashrc
+#echo 'eval "$(uv generate-shell-completion bash)"' >> ~/.bashrc
